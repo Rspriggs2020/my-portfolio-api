@@ -1,27 +1,36 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :update, :destroy]
+  #before_action :set_comment, only: [:show, :update, :destroy]
 
-  def index
-    @comments = Comment.all
-    render json: @comments
-  end
+  #def index
+  #  @comments = Comment.all
+   # render json: @comments
+  #end
 
-  def show
-    render json: @comment
-  end
+  #def show
+   # render json: @comment
+  #end
 
+  #def create
+   # @comment = Comment.new(comment_params)
+
+    #if @comment.save
+     # render json: @comment, status: :created, location: @comment
+    #else
+      #render json: @comment.errors, status: :unprocessable_entity
+   # end
+ # end
+
+  #def update
+   # if @comment.update(comment_params)
+     # render json: @comment
+   # else
+      #render json: @comment.errors, status: :unprocessable_entity
+    #end
+  #end
   def create
     @comment = Comment.new(comment_params)
-
     if @comment.save
-      render json: @comment, status: :created, location: @comment
-    else
-      render json: @comment.errors, status: :unprocessable_entity
-    end
-  end
-
-  def update
-    if @comment.update(comment_params)
+      @project = Project.find_by(id: comment.project_id)
       render json: @comment
     else
       render json: @comment.errors, status: :unprocessable_entity
@@ -29,13 +38,19 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment.destroy
+    @comment = Comment.find_by(id: comment_params[:id])
+    @project = Project.find_by(:id: comment_params[:project_id])
+    if @comment.destroy
+      render json: @project
+    else
+      render json: @comment.errors, status: :unprocessable_entity
+    end
   end
 
   private
-    def set_comment
-      @comment = Comment.find(params[:id])
-    end
+    #def set_comment
+     # @comment = Comment.find(params[:id])
+    #end
 
     def comment_params
       params.require(:comment).permit(:name, :title, :description, :contact_info, :project_id)
