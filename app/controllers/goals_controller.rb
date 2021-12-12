@@ -1,5 +1,5 @@
 class GoalsController < ApplicationController
-  before_action :set_goal, only: [:show, :update, :destroy]
+  before_action :set_goal, only: [:show, :destroy]
 
   def index
     @goals = Goal.all
@@ -16,6 +16,7 @@ class GoalsController < ApplicationController
     render json: @goal, status: :created, location: @goal
     else
       render json: {error: "Comment could not be created"}
+    end
   end
 
   def update
@@ -28,6 +29,7 @@ class GoalsController < ApplicationController
 
   def destroy
     @goal.destroy
+    render json: @goal
   end
 
   private

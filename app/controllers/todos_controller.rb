@@ -3,7 +3,7 @@ class TodosController < ApplicationController
 
   def index
     @goal = Goal.find(params[:goal_id])
-    @todos = @goal.todo.all
+    @todos = @goal.todos.all
 
     render json: @todos
   end
