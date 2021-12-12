@@ -1,5 +1,5 @@
 class GoalsController < ApplicationController
-  before_action :set_goal, only: [:show, :destroy]
+  #before_action :set_goal, only: [:show, :destroy]
 
   def index
     @goals = Goal.all
@@ -28,15 +28,18 @@ class GoalsController < ApplicationController
   end
 
   def destroy
-    @goal.destroy
+    @goal = Goal.find(params[:id])
+    if @goal.present?
+      @goal.destroy
+    end
     render json: @goal
   end
 
   private
 
-    def set_goal
-      @goal = Goal.find(params[:id])
-    end
+    #def set_goal
+     # @goal = Goal.find(params[:id])
+    #end
 
     def goal_params
       params.require(:goal).permit(:title, :description, :completed)
