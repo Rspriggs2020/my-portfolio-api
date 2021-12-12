@@ -28,7 +28,7 @@ class CommentsController < ApplicationController
     #end
   #end
   def create
-    @comment = Comment.new(comment_params)
+    @comment = Comment.create!(comment_params)
     if @comment.save
       @project = Project.find_by(id: comment.project_id)
       render json: @comment

@@ -11,20 +11,18 @@ class GoalsController < ApplicationController
   end
 
   def create
-    @goal = Goal.new(goal_params)
-
+    @goal = Goal.create(goal_params)
     if @goal.save
-      render json: @goal, status: :created, location: @goal
+    render json: @goal, status: :created, location: @goal
     else
-      render json: @goal.errors, status: :unprocessable_entity
-    end
+      render json: {error: "Comment could not be created"}
   end
 
   def update
     if @goal.update(goal_params)
       render json: @goal
     else
-      render json: @goal.errors, status: :unprocessable_entity
+      render json: {error: "Looks like something went wrong"}
     end
   end
 

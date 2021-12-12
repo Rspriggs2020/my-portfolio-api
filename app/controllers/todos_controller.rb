@@ -15,7 +15,7 @@ class TodosController < ApplicationController
 
   def create
     @goal = Goal.find(params[:goal_id])
-    @todo = @goal.todo.create(todo_params)
+    @todo = @goal.todo.create!(todo_params)
 
     if @todo.save
       render json: @todo, status: :created, location: @todo
@@ -25,7 +25,7 @@ class TodosController < ApplicationController
   end
 
   def update
-    if @todo.update(todo_params)
+    if @todo.update!(todo_params)
       render json: @todo
     else
       render json: @todo.errors, status: :unprocessable_entity
