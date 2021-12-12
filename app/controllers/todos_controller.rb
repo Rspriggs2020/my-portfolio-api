@@ -17,7 +17,7 @@ class TodosController < ApplicationController
     @todo = @goal.todos.create(todo_params)
 
     if @todo.save
-      render json: @todo, status: :created, location: @todo
+      render json: @todo, status: :created
     else
       render json: {error: "Looks like something went wrong"}
     end
