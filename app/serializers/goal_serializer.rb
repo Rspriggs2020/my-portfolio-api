@@ -1,4 +1,4 @@
 class GoalSerializer < ActiveModel::Serializer
   attributes :id, :title, :description, :completed
-  has_many :todos, dependent: :destroy
+  has_many :todos
 end
