@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2021_12_10_042830) do
   end
 
   create_table "todos", force: :cascade do |t|
-    t.string "title"
+    t.string "project_title"
     t.integer "goal_id"
     t.boolean "completed"
     t.datetime "created_at", precision: 6, null: false
