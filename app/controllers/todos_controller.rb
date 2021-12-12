@@ -1,8 +1,7 @@
 class TodosController < ApplicationController
-  before_action :set_todo, only: [:show, :update, :destroy]
 
   def index
-    @goal = Goal.find(params[:goal_id])
+    @goal = Goal.find_by(params[:id])
     @todos = @goal.todos.all
 
     render json: @todos
@@ -20,7 +19,7 @@ class TodosController < ApplicationController
     if @todo.save
       render json: @todo, status: :created, location: @todo
     else
-      render json: @todo.errors, status: :unprocessable_entity
+      render json: {error: "Looks like something went wrong"}
     end
   end
 
@@ -39,10 +38,6 @@ class TodosController < ApplicationController
   end
 
   private
-
-    def set_todo
-      @todo = Todo.find(params[:id])
-    end
 
     def todo_params
       params.require(:todo).permit(:title, :completed)
